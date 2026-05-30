@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProFormel – Excel-Vorlagen auf Bestellung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --dark: #1F3864;
+    --mid: #2F5496;
+    --light: #D6E4F0;
+    --accent: #E8F0FB;
+    --text: #1a1a2e;
+    --muted: #64748b;
+    --white: #ffffff;
+    --border: #e2e8f0;
+    --green: #1A6B3C;
+    --lgreen: #E2F0D9;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(31,56,100,0.07);
+  }
+  body { font-family: 'DM Sans', sans-serif; color: var(--text); background: #f8fafc; line-height: 1.6; }
+
+  /* NAV */
+  nav { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+  .nav-inner { max-width: 1100px; margin: auto; padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--dark); text-decoration: none; }
+  .nav-logo em { font-style: italic; color: var(--mid); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 14px; color: var(--muted); transition: color .2s; }
+  .nav-links a:hover { color: var(--dark); }
+  .nav-cta { background: var(--dark); color: var(--white); border: none; border-radius: 8px; padding: 9px 20px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: opacity .2s; }
+  .nav-cta:hover { opacity: .85; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, var(--dark) 0%, var(--mid) 100%); color: var(--white); padding: 6rem 2rem 5rem; text-align: center; }
+  .eyebrow { font-size: 12px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 1rem; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(40px, 6vw, 68px); line-height: 1.05; margin-bottom: 1.25rem; }
+  .hero h1 em { font-style: italic; color: #93c5fd; }
+  .hero-sub { font-size: 18px; color: rgba(255,255,255,.75); max-width: 560px; margin: 0 auto 2.5rem; }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-white { background: var(--white); color: var(--dark); border: none; border-radius: 8px; padding: 13px 28px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: opacity .2s; }
+  .btn-white:hover { opacity: .9; }
+  .btn-ghost { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,.4); border-radius: 8px; padding: 12px 24px; font-size: 15px; font-weight: 400; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: background .2s; }
+  .btn-ghost:hover { background: rgba(255,255,255,.1); }
+
+  /* STATS */
+  .stats { background: var(--white); border-bottom: 1px solid var(--border); }
+  .stats-inner { max-width: 1100px; margin: auto; padding: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+  .stat { text-align: center; padding: 1rem; }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--dark); }
+  .stat-label { font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+  /* SECTION */
+  section { max-width: 1100px; margin: 4rem auto; padding: 0 2rem; }
+  .section-tag { font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .75rem; }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(26px, 4vw, 36px); color: var(--dark); margin-bottom: .5rem; }
+  .section-sub { font-size: 15px; color: var(--muted); max-width: 560px; margin-bottom: 2.5rem; }
+
+  /* PRODUCTS */
+  .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .product-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; display: flex; flex-direction: column; gap: 12px; transition: box-shadow .2s, transform .2s; }
+  .product-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+  .product-card.featured { border: 2px solid var(--mid); }
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; }
+  .card-icon { width: 44px; height: 44px; border-radius: 10px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 22px; }
+  .card-price { text-align: right; }
+  .price-main { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--dark); }
+  .price-sub { font-size: 11px; color: var(--muted); }
+  .badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 9px; border-radius: 6px; background: var(--accent); color: var(--mid); margin-top: 4px; }
+  .badge-pop { background: #dbeafe; color: #1d4ed8; }
+  .card-title { font-weight: 500; font-size: 16px; color: var(--dark); }
+  .card-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .card-features { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .card-features li { font-size: 13px; color: var(--muted); display: flex; align-items: flex-start; gap: 7px; }
+  .card-features li::before { content: "✓"; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .btn-card { width: 100%; margin-top: auto; padding: 11px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: opacity .2s, background .2s; background: var(--dark); color: var(--white); border: none; }
+  .btn-card:hover { opacity: .85; }
+  .btn-card-outline { background: transparent; color: var(--dark); border: 1px solid var(--border); }
+  .btn-card-outline:hover { background: var(--accent); }
+
+  /* HOW IT WORKS */
+  .steps-bg { background: var(--dark); border-radius: 16px; padding: 2.5rem; }
+  .steps-title { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--white); margin-bottom: 2rem; }
+  .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.5rem; }
+  .step { position: relative; }
+  .step-num { font-family: 'DM Serif Display', serif; font-size: 42px; color: rgba(255,255,255,.15); line-height: 1; margin-bottom: .5rem; }
+  .step-title { font-weight: 500; font-size: 15px; color: var(--white); margin-bottom: 4px; }
+  .step-sub { font-size: 13px; color: rgba(255,255,255,.55); }
+
+  /* SERVICES */
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  .service-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; transition: box-shadow .2s; }
+  .service-card:hover { box-shadow: var(--shadow); }
+  .service-icon { font-size: 26px; margin-bottom: 10px; }
+  .service-title { font-weight: 500; font-size: 14px; margin-bottom: 4px; color: var(--dark); }
+  .service-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* CTA BAND */
+  .cta-band { background: var(--accent); border: 1px solid var(--light); border-radius: var(--radius); padding: 2rem 2.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+  .cta-title { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--dark); margin-bottom: 4px; }
+  .cta-sub { font-size: 14px; color: var(--muted); }
+  .btn-dark { background: var(--dark); color: var(--white); border: none; border-radius: 8px; padding: 13px 26px; font-size: 15px; font-weight: 500; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: opacity .2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-dark:hover { opacity: .85; }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); margin-top: 5rem; }
+  .footer-inner { max-width: 1100px; margin: auto; padding: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--dark); }
+  .footer-logo em { font-style: italic; color: var(--mid); }
+  .footer-text { font-size: 12px; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .hero { padding: 4rem 1.5rem 3.5rem; }
+    section { padding: 0 1.25rem; }
+    .steps-bg { padding: 1.75rem; }
+    .cta-band { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Pro<em>Formel</em></a>
+    <ul class="nav-links">
+      <li><a href="#produkte">Produkte</a></li>
+      <li><a href="#leistungen">Leistungen</a></li>
+      <li><a href="#ablauf">Ablauf</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+    <a href="#kontakt" class="nav-cta">Anfrage stellen</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <p class="eyebrow">Excel-Automatisierung auf Bestellung</p>
+  <h1>Pro<em>Formel</em></h1>
+  <p class="hero-sub">Maßgeschneiderte Excel-Vorlagen, die Ihre Arbeit automatisieren — von der Idee bis zur fertigen Datei.</p>
+  <div class="hero-btns">
+    <a href="#produkte" class="btn-white">Fertige Vorlagen ansehen</a>
+    <a href="#kontakt" class="btn-ghost">Individuelle Vorlage anfragen</a>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">individuell angepasst</div></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">fertige Vorlagen</div></div>
+    <div class="stat"><div class="stat-num">ab 12 €</div><div class="stat-label">Einstiegspreis</div></div>
+    <div class="stat"><div class="stat-num">Sofort</div><div class="stat-label">nach Lieferung nutzbar</div></div>
+  </div>
+</div>
+
+<section id="produkte">
+  <p class="section-tag">Fertige Produkte</p>
+  <h2 class="section-title">Direkt loslegen</h2>
+  <p class="section-sub">Alle Vorlagen sind sofort einsatzbereit und können jederzeit auf Ihre Bedürfnisse angepasst werden.</p>
+
+  <div class="products-grid">
+    <div class="product-card featured">
+      <div class="card-top">
+        <div class="card-icon">🧾</div>
+        <div class="card-price">
+          <div class="price-main">19 €</div>
+          <div class="price-sub">einmalig</div>
+          <div class="badge badge-pop">Beliebt</div>
+        </div>
+      </div>
+      <div class="card-title">Rechnungsvorlage</div>
+      <div class="card-desc">Professionelle Rechnungen in Sekunden — mit automatischer Nummerierung und Kundendatenbank.</div>
+      <ul class="card-features">
+        <li>Automatische Rechnungsnummer</li>
+        <li>MwSt-Berechnung (19% / 7% / 0%)</li>
+        <li>Druckfertige Ansicht</li>
+        <li>Kundenarchiv auf separatem Blatt</li>
+      </ul>
+      <a href="#kontakt" class="btn-card">Jetzt kaufen →</a>
+    </div>
+
+    <div class="product-card">
+      <div class="card-top">
+        <div class="card-icon">💰</div>
+        <div class="card-price">
+          <div class="price-main">14 €</div>
+          <div class="price-sub">einmalig</div>
+          <div class="badge">Neu</div>
+        </div>
+      </div>
+      <div class="card-title">Haushaltsbuch & Budgetplaner</div>
+      <div class="card-desc">Einnahmen und Ausgaben im Blick — monatsweise, mit Jahresübersicht und Sparzielen.</div>
+      <ul class="card-features">
+        <li>12 Monatsblätter</li>
+        <li>Automatische Jahresauswertung</li>
+        <li>Kategorien frei anpassbar</li>
+        <li>Sparziel-Fortschrittsanzeige</li>
+      </ul>
+      <a href="#kontakt" class="btn-card">Jetzt kaufen →</a>
+    </div>
+
+    <div class="product-card">
+      <div class="card-top">
+        <div class="card-icon">📊</div>
+        <div class="card-price">
+          <div class="price-main">24 €</div>
+          <div class="price-sub">einmalig</div>
+        </div>
+      </div>
+      <div class="card-title">Angebots- & Kalkulationsvorlage</div>
+      <div class="card-desc">Angebote erstellen und gleichzeitig die eigene Kalkulation im Blick behalten — in einer Datei.</div>
+      <ul class="card-features">
+        <li>Angebotsformular druckfertig</li>
+        <li>Deckungsbeitragsrechnung</li>
+        <li>Materialkosten & Stundensatz</li>
+        <li>Positionsliste mit Summenformel</li>
+      </ul>
+      <a href="#kontakt" class="btn-card">Jetzt kaufen →</a>
+    </div>
+
+    <div class="product-card">
+      <div class="card-top">
+        <div class="card-icon">⏱️</div>
+        <div class="card-price">
+          <div class="price-main">12 €</div>
+          <div class="price-sub">einmalig</div>
+        </div>
+      </div>
+      <div class="card-title">Stundenerfassung</div>
+      <div class="card-desc">Arbeitsstunden erfassen, Überstunden berechnen und Monatsberichte auf Knopfdruck.</div>
+      <ul class="card-features">
+        <li>Tägliche Ein-/Ausstempelung</li>
+        <li>Automatische Überstundenrechnung</li>
+        <li>Monatsbericht je Blatt</li>
+        <li>Feiertage & Urlaub integriert</li>
+      </ul>
+      <a href="#kontakt" class="btn-card">Jetzt kaufen →</a>
+    </div>
+  </div>
+</section>
+
+<section id="leistungen">
+  <p class="section-tag">Leistungen</p>
+  <h2 class="section-title">Was ich für Sie umsetze</h2>
+  <p class="section-sub">Kein Standardprodukt von der Stange — jede Vorlage wird genau auf Ihren Bedarf zugeschnitten.</p>
+  <div class="services-grid">
+    <div class="service-card"><div class="service-icon">🧮</div><div class="service-title">Kalkulationsvorlagen</div><div class="service-desc">Angebote, Kosten, Margen — alles automatisch berechnet.</div></div>
+    <div class="service-card"><div class="service-icon">📈</div><div class="service-title">Dashboards & Auswertungen</div><div class="service-desc">Übersichtliche Charts und KPIs auf einen Blick.</div></div>
+    <div class="service-card"><div class="service-icon">🗂️</div><div class="service-title">Rechnungs- & Auftragstools</div><div class="service-desc">Automatische Nummerierung, Druck und Archivierung.</div></div>
+    <div class="service-card"><div class="service-icon">📅</div><div class="service-title">Planung & Controlling</div><div class="service-desc">Budgets, Jahresplanung, Soll-Ist-Vergleiche.</div></div>
+    <div class="service-card"><div class="service-icon">⚡</div><div class="service-title">Automatisierung & Makros</div><div class="service-desc">Wiederkehrende Aufgaben per Knopfdruck erledigen.</div></div>
+    <div class="service-card"><div class="service-icon">🔗</div><div class="service-title">Verknüpfte Arbeitsmappen</div><div class="service-desc">Mehrere Dateien intelligent miteinander verbinden.</div></div>
+  </div>
+</section>
+
+<section id="ablauf">
+  <div class="steps-bg">
+    <div class="steps-title">So einfach funktioniert's</div>
+    <div class="steps-grid">
+      <div class="step"><div class="step-num">01</div><div class="step-title">Anfrage senden</div><div class="step-sub">Beschreiben Sie kurz Ihren Bedarf — per E-Mail oder Kontaktformular.</div></div>
+      <div class="step"><div class="step-num">02</div><div class="step-title">Angebot erhalten</div><div class="step-sub">Ich melde mich innerhalb von 24 Stunden mit Preis und Zeitplan.</div></div>
+      <div class="step"><div class="step-num">03</div><div class="step-title">Vorlage erhalten</div><div class="step-sub">Die fertige Excel-Datei kommt per E-Mail — inkl. kurzer Einführung.</div></div>
+      <div class="step"><div class="step-num">04</div><div class="step-title">Sofort einsetzen</div><div class="step-sub">Alle Vorlagen sind sofort nutzbar. Anpassungen jederzeit möglich.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt">
+  <div class="cta-band">
+    <div>
+      <div class="cta-title">Ihr Projekt, Ihre Vorlage.</div>
+      <div class="cta-sub">Individuelle Vorlage auf Bestellung · ab 30 € · Lieferung innerhalb von 3–5 Werktagen</div>
+    </div>
+    <a href="mailto:ihre@email.de" class="btn-dark">✉ Anfrage stellen</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Pro<em>Formel</em></div>
+    <div class="footer-text">© 2025 ProFormel · Alle Preise inkl. MwSt. · Impressum · Datenschutz</div>
+  </div>
+</footer>
+
+</body>
+</html>
